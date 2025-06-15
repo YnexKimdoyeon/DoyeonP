@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김도연 - RPA Developer Portfolio</title>
+    <meta name="description" content="RPA 개발자 김도연의 포트폴리오 - 업무 자동화 전문가">
+    <meta name="keywords" content="RPA, 개발자, 업무자동화, Python, SQL, 김도연">
+    <meta name="author" content="김도연">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="김도연 - RPA Developer Portfolio">
+    <meta property="og:description" content="RPA 개발자 김도연의 포트폴리오 - 업무 자동화 전문가">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 50%, #f0fdfa 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Floating Navigation */
+        .floating-nav {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            border: none;
+            background: transparent;
+            color: #6b7280;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .drag-handle {
+            font-size: 0.75rem;
+            opacity: 0.6;
+            cursor: grab;
+        }
+
+        .nav-item:active .drag-handle {
+            cursor: grabbing;
+        }
+
+        .nav-item.dragging {
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem 0;
+        }
+
+        .bg-elements {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-circle {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.7;
+        }
+
+        .bg-circle-1 {
+            top: -150px;
+            right: -150px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(6, 182, 212, 0.3));
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .bg-circle-2 {
+            bottom: -150px;
+            left: -150px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(59, 130, 246, 0.3));
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+        }
+
+        .profile-container {
+            display: flex;
+            justify-content: center;
+            order: -1;
+        }
+
+        @media (min-width: 1024px) {
+            .profile-container {
+                justify-content: flex-end;
+                order: 0;
+            }
+        }
+
+        .profile-wrapper {
+            position: relative;
+        }
+
+        .profile-image {
+            width: 280px;
+            height: 280px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            transform: rotate(3deg);
+            transition: all 0.5s ease;
+            position: relative;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-image:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .profile-placeholder {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+        }
+
+        .profile-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1));
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .floating-star {
+            top: -16px;
+            right: -16px;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            animation: bounce 2s infinite;
+        }
+
+        .floating-code {
+            bottom: -16px;
+            left: -16px;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+            border-radius: 16px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: center;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-content {
+                text-align: left;
+            }
+        }
+
+        .hero-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .greeting {
+            color: #3b82f6;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1f2937, #1e40af, #0891b2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+            margin: 0.5rem 0;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-title {
+                font-size: 4rem;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #6b7280;
+            font-weight: 300;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-subtitle {
+                font-size: 2rem;
+            }
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: #6b7280;
+            line-height: 1.7;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-description {
+                margin: 0;
+            }
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #3b82f6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-buttons {
+                justify-content: flex-start;
+            }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            color: white;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2563eb, #0891b2);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 2px solid #bfdbfe;
+            color: #3b82f6;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .btn-outline:hover {
+            background: #eff6ff;
+            border-color: #3b82f6;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            padding-top: 1rem;
+            justify-content: center;
+        }
+
+        @media (min-width: 1024px) {
+            .social-links {
+                justify-content: flex-start;
+            }
+        }
+
+        .social-link {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: #3b82f6;
+            background: white;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        /* Skills Section */
+        .skills-section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            color: #6b7280;
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            justify-items: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .skills-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 280px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .skill-card:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover .skill-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 1rem;
+            line-height: 1.2;
+        }
+
+        .skill-progress {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+        }
+
+        .progress-info span:first-child {
+            color: #6b7280;
+        }
+
+        .progress-value {
+            font-weight: 600;
+            color: #3b82f6;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border-radius: 10px;
+            width: 0;
+            transition: width 1.5s ease-out;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Experience Section */
+        .experience-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, rgba(239, 246, 255, 0.5), rgba(240, 253, 250, 0.5));
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 1024px) {
+            .experience-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .subsection-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 2rem;
+        }
+
+        .subsection-title svg {
+            color: #3b82f6;
+        }
+
+        .career-list,
+        .awards-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .career-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 12px 12px 0;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .career-card:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: translateX(5px);
+        }
+
+        .career-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .career-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .career-period {
+            font-size: 0.75rem;
+            color: #6b7280;
+            background: #dbeafe;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .career-company {
+            color: #3b82f6;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .career-description {
+            color: #6b7280;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .career-achievements {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .career-achievements li {
+            color: #374151;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .career-achievements li::before {
+            content: "▸";
+            color: #3b82f6;
+            font-weight: bold;
+            margin-top: 0.125rem;
+            flex-shrink: 0;
+        }
+
+        .award-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .award-card:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .award-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .award-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .award-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .award-icon-gold {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        }
+
+        .award-icon-blue {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+        }
+
+        .award-details h4 {
+            font-weight: 600;
+            color: #1f2937;
+            transition: color 0.3s ease;
+            margin-bottom: 0.25rem;
+        }
+
+        .award-card:hover .award-details h4 {
+            color: #3b82f6;
+        }
+
+        .award-organization {
+            font-size: 0.875rem;
+            color: #3b82f6;
+        }
+
+        .award-year {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            white-space: nowrap;
+        }
+
+        .award-description {
+            color: #6b7280;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .contact-card {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+            border-radius: 24px;
+            padding: 3rem;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .contact-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .contact-description {
+            color: #6b7280;
+            font-size: 1.125rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .contact-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .contact-item {
+            text-align: center;
+            transition: transform 0.3s ease;
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin: 0 auto 1rem;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .contact-label {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-value {
+            color: #6b7280;
+            word-break: break-all;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 2rem 0;
+            text-align: center;
+            color: #9ca3af;
+            border-top: 1px solid rgba(243, 244, 246, 0.5);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .fade-in-up-delay {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .fade-in-up-delay:nth-child(1) { animation-delay: 0.1s; }
+        .fade-in-up-delay:nth-child(2) { animation-delay: 0.2s; }
+        .fade-in-up-delay:nth-child(3) { animation-delay: 0.3s; }
+        .fade-in-up-delay:nth-child(4) { animation-delay: 0.4s; }
+        .fade-in-up-delay:nth-child(5) { animation-delay: 0.5s; }
+        .fade-in-up-delay:nth-child(6) { animation-delay: 0.6s; }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .floating-nav {
+                left: 1rem;
+                right: 1rem;
+                transform: none;
+                padding: 0.5rem 1rem;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.25rem;
+            }
+
+            .nav-item {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.8rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.25rem;
+            }
+
+            .profile-image {
+                width: 240px;
+                height: 240px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .contact-card {
+                padding: 2rem;
+                margin: 0 1rem;
+            }
+
+            .contact-title {
+                font-size: 2rem;
+            }
+
+            .career-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .award-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .loading.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(59, 130, 246, 0.2);
+            z-index: 9999;
+        }
+
+        .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #06b6d4);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scroll-progress"></div>
+    </div>
+
+    <!-- Floating Navigation -->
+    <nav class="floating-nav" id="floating-nav">
+        <div class="nav-container" id="nav-container">
+            <a href="#home" class="nav-item active" data-section="home" draggable="true">
+                <span class="drag-handle">⋮⋮</span>
+                Home
+            </a>
+            <a href="#about" class="nav-item" data-section="about" draggable="true">
+                <span class="drag-handle">⋮⋮</span>
+                About
+            </a>
+            <a href="#skills" class="nav-item" data-section="skills" draggable="true">
+                <span class="drag-handle">⋮⋮</span>
+                Skills
+            </a>
+            <a href="#experience" class="nav-item" data-section="experience" draggable="true">
+                <span class="drag-handle">⋮⋮</span>
+                Experience
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <!-- Animated Background Elements -->
+        <div class="bg-elements">
+            <div class="bg-circle bg-circle-1"></div>
+            <div class="bg-circle bg-circle-2"></div>
+        </div>
+
+        <div class="container">
+            <div class="hero-grid">
+                <!-- Profile Image -->
+                <div class="profile-container">
+                    <div class="profile-wrapper">
+                        <div class="profile-image">
+                            <img class="profile-overlay" src="profile.jpg" alt="Profile" />
+                        </div>
+                        <!-- Floating Elements -->
+                        <div class="floating-element floating-star">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"></polygon>
+                            </svg>
+                        </div>
+                        <div class="floating-element floating-code">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16,18 22,12 16,6"></polyline>
+                                <polyline points="8,6 2,12 8,18"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Content -->
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <p class="greeting">안녕하세요! 👋</p>
+                        <h1 class="hero-title">김도연</h1>
+                        <h2 class="hero-subtitle">RPA Developer</h2>
+                    </div>
+
+                    <p class="hero-description">
+                        사용자 경험을 최우선으로 생각하며, 아름답고 기능적인 웹 애플리케이션을 만드는
+                        <span class="highlight">3년차 RPA 개발자</span>입니다.
+                    </p>
+
+                    <div class="hero-buttons">
+                        <a href="#experience" class="btn btn-primary">
+                            경력 보기
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12,5 19,12 12,19"></polyline>
+                            </svg>
+                        </a>
+                        <a href="#about" class="btn btn-outline">
+                            연락하기
+                        </a>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="social-links">
+                        <a href="https://github.com/YnexKimdoyeon" class="social-link" aria-label="GitHub" target="_blank">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                        </a>
+                        <a href="mailto:kims2369@naver.com" class="social-link" aria-label="Email">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </a>
+                        <a href="tel:010-9922-4178" class="social-link" aria-label="Phone">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Skills & Expertise</h2>
+                <p class="section-description">
+                    끊임없는 학습과 실무 경험을 통해 쌓아온 기술 스택들입니다.
+                </p>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-card loading">
+                    <div class="skill-header">
+                        <div class="skill-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16,18 22,12 16,6"></polyline>
+                                <polyline points="8,6 2,12 8,18"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="skill-name">Python</h3>
+                    </div>
+                    <div class="skill-progress">
+                        <div class="progress-info">
+                            <span>숙련도</span>
+                            <span class="progress-value">80%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="80"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card loading">
+                    <div class="skill-header">
+                        <div class="skill-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"></polygon>
+                            </svg>
+                        </div>
+                        <h3 class="skill-name">SQL</h3>
+                    </div>
+                    <div class="skill-progress">
+                        <div class="progress-info">
+                            <span>숙련도</span>
+                            <span class="progress-value">70%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="70"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card loading">
+                    <div class="skill-header">
+                        <div class="skill-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="skill-name">ERP Architecture</h3>
+                    </div>
+                    <div class="skill-progress">
+                        <div class="progress-info">
+                            <span>숙련도</span>
+                            <span class="progress-value">80%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="80"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience & Awards Section -->
+    <section id="experience" class="experience-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Experience & Awards</h2>
+                <p class="section-description">
+                    RPA 개발 및 업무 자동화 분야에서의 경력과 성과를 소개합니다.
+                </p>
+            </div>
+
+            <div class="experience-grid">
+                <!-- Career Section -->
+                <div class="career-section">
+                    <h3 class="subsection-title">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                            <line x1="6" y1="1" x2="6" y2="4"></line>
+                            <line x1="10" y1="1" x2="10" y2="4"></line>
+                            <line x1="14" y1="1" x2="14" y2="4"></line>
+                        </svg>
+                        Career
+                    </h3>
+                    <div class="career-list">
+                        <div class="career-card fade-in-up-delay">
+                            <div class="career-header">
+                                <h4 class="career-title">Ynex (대표)</h4>
+                                <span class="career-period">2023.08 - 현재</span>
+                            </div>
+                            <p class="career-company">업무 자동화 솔루션 SI 업체</p>
+                            <p class="career-description">업무 자동화 솔루션 및 프로그램 SI 업체 창업</p>
+                            <ul class="career-achievements">
+                                <li>업무 자동화 솔루션 개발</li>
+                                <li>기업 맞춤형 자동화 시스템 구축</li>
+                            </ul>
+                        </div>
+
+                        <div class="career-card fade-in-up-delay">
+                            <div class="career-header">
+                                <h4 class="career-title">국방부 정보화팀 인턴</h4>
+                                <span class="career-period">2024.08 - 2024.11</span>
+                            </div>
+                            <p class="career-company">국방부</p>
+                            <p class="career-description">정보화팀 인턴십</p>
+                            <ul class="career-achievements">
+                                <li>국방 정보화 시스템 운영 지원</li>
+                                <li>데이터베이스 관리 및 유지보수</li>
+                            </ul>
+                        </div>
+
+                        <div class="career-card fade-in-up-delay">
+                            <div class="career-header">
+                                <h4 class="career-title">전산자력시스템병 (DB관리)</h4>
+                                <span class="career-period">2023.02 - 2024.08</span>
+                            </div>
+                            <p class="career-company">대한민국 육군 본부 인사사령부</p>
+                            <p class="career-description">육군 본부 인사사령부 병인사관리과 복무</p>
+                            <ul class="career-achievements">
+                                <li>신) 국방인사정보체계 고도화 사업 참여</li>
+                                <li>육군 DB 관련 유지보수 담당</li>
+                            </ul>
+                        </div>
+
+                        <div class="career-card fade-in-up-delay">
+                            <div class="career-header">
+                                <h4 class="career-title">RPA 프리랜서</h4>
+                                <span class="career-period">2021.07 - 현재</span>
+                            </div>
+                            <p class="career-company">크몽</p>
+                            <p class="career-description">RPA 프로그램 외주 및 업무자동화 개발</p>
+                            <ul class="career-achievements">
+                                <li>크몽 Prime 대표 전문가 선정</li>
+                                <li>업무자동화 프로그램 개발 다수</li>
+                            </ul>
+                        </div>
+
+                        <div class="career-card fade-in-up-delay">
+                            <div class="career-header">
+                                <h4 class="career-title">BuyTheProgram (대표)</h4>
+                                <span class="career-period">2018.07 - 2020.07</span>
+                            </div>
+                            <p class="career-company">프로그램 거래 플랫폼</p>
+                            <p class="career-description">프로그램 구매/판매 중개 웹사이트 창업</p>
+                            <ul class="career-achievements">
+                                <li>프로그램 거래 플랫폼 개발</li>
+                                <li>온라인 결제 시스템 연동</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Awards Section -->
+                <div class="awards-section">
+                    <h3 class="subsection-title">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"></polygon>
+                        </svg>
+                        Awards & Certifications
+                    </h3>
+                    <div class="awards-list">
+                        <div class="award-card fade-in-up-delay">
+                            <div class="award-content">
+                                <div class="award-info">
+                                    <div class="award-icon award-icon-gold">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"></polygon>
+                                        </svg>
+                                    </div>
+                                    <div class="award-details">
+                                        <h4>부총리겸 교육부장관상</h4>
+                                        <p class="award-organization">교육부</p>
+                                    </div>
+                                </div>
+                                <span class="award-year">2024</span>
+                            </div>
+                            <p class="award-description">COSS 미래자동차 분야 우수상</p>
+                        </div>
+
+                        <div class="award-card fade-in-up-delay">
+                            <div class="award-content">
+                                <div class="award-info">
+                                    <div class="award-icon award-icon-gold">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"></polygon>
+                                        </svg>
+                                    </div>
+                                    <div class="award-details">
+                                        <h4>육군 참모총장 표창 (4스타)</h4>
+                                        <p class="award-organization">대한민국 육군</p>
+                                    </div>
+                                </div>
+                                <span class="award-year">2024</span>
+                            </div>
+                            <p class="award-description">신) 국방인사정보체계 데이터베이스 개발 유공</p>
+                        </div>
+
+                        <div class="award-card fade-in-up-delay">
+                            <div class="award-content">
+                                <div class="award-info">
+                                    <div class="award-icon award-icon-gold">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"></polygon>
+                                        </svg>
+                                    </div>
+                                    <div class="award-details">
+                                        <h4>육군 참모총장 표창 (4스타)</h4>
+                                        <p class="award-organization">대한민국 육군</p>
+                                    </div>
+                                </div>
+                                <span class="award-year">2024</span>
+                            </div>
+                            <p class="award-description">병인사관리 RPA(업무자동화) 프로그램 개발 유공</p>
+                        </div>
+
+                        <div class="award-card fade-in-up-delay">
+                            <div class="award-content">
+                                <div class="award-info">
+                                    <div class="award-icon award-icon-gold">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"></polygon>
+                                        </svg>
+                                    </div>
+                                    <div class="award-details">
+                                        <h4>육군 인사행정처장 표창 (1스타)</h4>
+                                        <p class="award-organization">대한민국 육군</p>
+                                    </div>
+                                </div>
+                                <span class="award-year">2024</span>
+                            </div>
+                            <p class="award-description">국방인사정보체계 데이터베이스 착오최소화 유공</p>
+                        </div>
+
+                        <div class="award-card fade-in-up-delay">
+                            <div class="award-content">
+                                <div class="award-info">
+                                    <div class="award-icon award-icon-blue">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path>
+                                            <path d="m9 12 2 2 4-4"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="award-details">
+                                        <h4>ADSP (데이터분석 준전문가)</h4>
+                                        <p class="award-organization">한국데이터산업진흥원</p>
+                                    </div>
+                                </div>
+                                <span class="award-year">2023</span>
+                            </div>
+                            <p class="award-description">데이터 분석 준전문가 자격증</p>
+                        </div>
+
+                        <div class="award-card fade-in-up-delay">
+                            <div class="award-content">
+                                <div class="award-info">
+                                    <div class="award-icon award-icon-blue">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path>
+                                            <path d="m9 12 2 2 4-4"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="award-details">
+                                        <h4>SQLD (SQL 개발자)</h4>
+                                        <p class="award-organization">한국데이터산업진흥원</p>
+                                    </div>
+                                </div>
+                                <span class="award-year">2023</span>
+                            </div>
+                            <p class="award-description">SQL 개발자 자격증</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="about" class="contact-section">
+        <div class="container">
+            <div class="contact-card">
+                <div class="contact-header">
+                    <h2 class="contact-title">Let's Work Together</h2>
+                    <p class="contact-description">새로운 프로젝트나 협업 기회에 대해 언제든 연락주세요!</p>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="contact-label">Email</h3>
+                        <p class="contact-value">kims2369@naver.com</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="contact-label">Phone</h3>
+                        <p class="contact-value">010-9922-4178</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                        </div>
+                        <h3 class="contact-label">GitHub</h3>
+                        <p class="contact-value">github.com/YnexKimdoyeon</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Kim Doyeon. Crafted with 💜 and lots of ☕</p>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('section');
+        const skillCards = document.querySelectorAll('.skill-card');
+        const progressFills = document.querySelectorAll('.progress-fill');
+        const scrollProgress = document.getElementById('scroll-progress');
+
+        // Navigation functionality
+        let draggedElement = null;
+
+        // Smooth scroll to section
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        // Update active navigation item
+        function updateActiveNav() {
+            const scrollPosition = window.scrollY + 200;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    navItems.forEach(item => item.classList.remove('active'));
+                    const activeItem = document.querySelector(`[data-section="${sectionId}"]`);
+                    if (activeItem) {
+                        activeItem.classList.add('active');
+                    }
+                }
+            });
+        }
+
+        // Update scroll progress
+        function updateScrollProgress() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            scrollProgress.style.width = scrollPercent + '%';
+        }
+
+        // Animate skill progress bars
+        function animateSkills() {
+            progressFills.forEach(fill => {
+                const targetWidth = fill.getAttribute('data-width');
+                setTimeout(() => {
+                    fill.style.width = targetWidth + '%';
+                }, 300);
+            });
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+
+                    // Animate skills when skills section is visible
+                    if (entry.target.id === 'skills') {
+                        setTimeout(animateSkills, 300);
+                        // Animate skill cards
+                        skillCards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.classList.add('loaded');
+                            }, index * 100);
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections for animations
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Navigation click handlers
+        navItems.forEach(item => {
+            item.addEventListener('click', e => {
+                e.preventDefault();
+                const sectionId = item.getAttribute('data-section');
+                scrollToSection(sectionId);
+            });
+        });
+
+        // Drag and drop functionality for navigation
+        navItems.forEach(item => {
+            item.addEventListener('dragstart', e => {
+                draggedElement = item;
+                item.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+            });
+
+            item.addEventListener('dragend', () => {
+                if (draggedElement) {
+                    draggedElement.classList.remove('dragging');
+                    draggedElement = null;
+                }
+            });
+
+            item.addEventListener('dragover', e => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+            });
+
+            item.addEventListener('drop', e => {
+                e.preventDefault();
+
+                if (draggedElement && draggedElement !== item) {
+                    const container = item.parentNode;
+                    const draggedIndex = Array.from(container.children).indexOf(draggedElement);
+                    const targetIndex = Array.from(container.children).indexOf(item);
+
+                    if (draggedIndex < targetIndex) {
+                        container.insertBefore(draggedElement, item.nextSibling);
+                    } else {
+                        container.insertBefore(draggedElement, item);
+                    }
+                }
+            });
+        });
+
+        // Parallax effect for background elements
+        function updateParallax() {
+            const scrollY = window.scrollY;
+            const bgCircle1 = document.querySelector('.bg-circle-1');
+            const bgCircle2 = document.querySelector('.bg-circle-2');
+
+            if (bgCircle1) {
+                bgCircle1.style.transform = `translateY(${scrollY * 0.3}px) rotate(${scrollY * 0.1}deg)`;
+            }
+
+            if (bgCircle2) {
+                bgCircle2.style.transform = `translateY(${-scrollY * 0.2}px) rotate(${-scrollY * 0.1}deg)`;
+            }
+        }
+
+        // Throttle function for performance
+        function throttle(func, limit) {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            };
+        }
+
+        // Scroll event listeners
+        window.addEventListener('scroll', throttle(() => {
+            updateActiveNav();
+            updateScrollProgress();
+            updateParallax();
+        }, 16)); // ~60fps
+
+        // Mobile navigation handling
+        function handleMobileNav() {
+            const nav = document.querySelector('.floating-nav');
+            let lastScrollY = window.scrollY;
+
+            window.addEventListener('scroll', throttle(() => {
+                const currentScrollY = window.scrollY;
+
+                if (window.innerWidth <= 768) {
+                    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                        nav.style.transform = 'translateX(-50%) translateY(-100%)';
+                    } else {
+                        nav.style.transform = 'translateX(-50%) translateY(0)';
+                    }
+                } else {
+                    nav.style.transform = 'translateX(-50%) translateY(0)';
+                }
+
+                lastScrollY = currentScrollY;
+            }, 100));
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add initial fade-in animation to hero section
+            const heroSection = document.getElementById('home');
+            if (heroSection) {
+                heroSection.classList.add('fade-in-up');
+            }
+
+            // Initialize active navigation
+            updateActiveNav();
+            updateScrollProgress();
+
+            // Initialize mobile navigation
+            handleMobileNav();
+
+            // Add loading animations to cards with delay
+            const allCards = document.querySelectorAll('.career-card, .award-card');
+            allCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('fade-in-up');
+                }, index * 50);
+            });
+
+            // Smooth reveal for contact items
+            const contactItems = document.querySelectorAll('.contact-item');
+            contactItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('fade-in-up');
+                }, index * 100);
+            });
+        });
+
+        // Add touch support for mobile drag and drop
+        let touchStartY = 0;
+        let touchStartX = 0;
+
+        navItems.forEach(item => {
+            item.addEventListener('touchstart', e => {
+                touchStartY = e.touches[0].clientY;
+                touchStartX = e.touches[0].clientX;
+            });
+
+            item.addEventListener('touchmove', e => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const deltaY = touch.clientY - touchStartY;
+                const deltaX = touch.clientX - touchStartX;
+
+                // Add visual feedback for touch drag
+                if (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10) {
+                    item.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.95)`;
+                    item.style.opacity = '0.8';
+                }
+            });
+
+            item.addEventListener('touchend', () => {
+                item.style.transform = '';
+                item.style.opacity = '';
+            });
+        });
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+        });
+
+        document.addEventListener('mousedown', () => {
+            document.body.classList.remove('keyboard-navigation');
+        });
+
+        // Add focus styles for keyboard navigation
+        const style = document.createElement('style');
+        style.textContent = `
+            .keyboard-navigation .nav-item:focus,
+            .keyboard-navigation .btn:focus,
+            .keyboard-navigation .social-link:focus {
+                outline: 2px solid #3b82f6;
+                outline-offset: 2px;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
